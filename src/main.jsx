@@ -51,7 +51,7 @@ const imageGuide = {
 const contact = {
   phone: "082249501188",
   whatsapp: "https://wa.me/6282249501188",
-  email: "cv.kpn2019@gnail.com",
+  email: "cv.kpn2019@gmail.com",
   instagram: "https://www.instagram.com/videotronmurahsurabaya?igsi=MWNwamRwMm9kMnh6Zg==",
   facebook: "https://www.facebook.com/share/1DRjddx7jz/",
   address:
