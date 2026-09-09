@@ -22,6 +22,8 @@ import {
   X,
   MapPin,
   Loader2,
+  Eye,
+  EyeOff,
 } from "lucide-react";
 import "./styles.css";
 
@@ -140,7 +142,22 @@ function Portfolio({ projects }) {
 }
 
 function Clients({ clients }) {
-  return <section className="section clients-section"><div className="clients-intro"><div><div className="kicker">CLIENTS & PROJECT PARTNERS</div><h2>Dipercaya untuk<br/><em>berbagai kebutuhan proyek.</em></h2></div><p>Beberapa partner di bawah merupakan dokumentasi project KPN. Logo ditampilkan apa adanya tanpa teks tambahan agar tetap clean.</p></div><div className="logo-grid-clean">{(clients || []).map(c => <div className="client-logo-clean" key={c.id}><Img src={c.image} alt={c.name}/></div>)}</div></section>;
+  const list = clients || [];
+  const doubleList = list.length > 0 ? [...list, ...list, ...list] : [];
+  return <section className="section clients-section">
+    <div className="clients-intro">
+      <div>
+        <div className="kicker">CLIENTS & PROJECT PARTNERS</div>
+        <h2>Dipercaya untuk<br/><em>berbagai kebutuhan proyek.</em></h2>
+      </div>
+      <p>Beberapa partner di bawah merupakan dokumentasi project KPN. Logo ditampilkan apa adanya tanpa teks tambahan agar tetap clean.</p>
+    </div>
+    <div className="logo-marquee-wrap" tabIndex={0} role="region" aria-label="Logo Client Carousel">
+      <div className="logo-marquee-track">
+        {doubleList.map((c, i) => <div className="client-logo-clean" key={`${c.id}-${i}`}><Img src={c.image} alt={c.name}/></div>)}
+      </div>
+    </div>
+  </section>;
 }
 
 function NewsCard({ item, feature = false }) {
@@ -221,8 +238,48 @@ function ImageField({ value, onChange, label = "Gambar" }) {
 }
 
 function AdminLogin({ onSuccess }) {
-  const [password, setPassword] = React.useState(""); const [error, setError] = React.useState("");
-  return <div className="admin-auth"><div className="admin-auth-card"><div className="admin-logo"><Img src={imageGuide.kpnLogo} alt="KPN"/></div><span className="kicker">KPN CMS</span><h1>Admin KPN</h1><p>Kelola isi website terhubung Supabase Database & Storage.</p><input autoFocus type="password" value={password} onChange={e => setPassword(e.target.value)} onKeyDown={e => e.key === "Enter" && ((password === "kpnadmin" || password === "admin123") ? onSuccess() : setError("Password admin salah."))} placeholder="Password admin"/><button className="btn gold" onClick={() => (password === "kpnadmin" || password === "admin123") ? onSuccess() : setError("Password admin salah.")}>Masuk <ArrowRight size={16}/></button>{error && <span className="form-error">{error}</span>}<small>Sistem CMS Admin KPN terhubung langsung ke Supabase.</small></div></div>;
+  const [password, setPassword] = React.useState("");
+  const [showPassword, setShowPassword] = React.useState(false);
+  const [error, setError] = React.useState("");
+
+  const handleLogin = () => {
+    if (password === "kpnadmin" || password === "admin123") {
+      onSuccess();
+    } else {
+      setError("Password admin salah.");
+    }
+  };
+
+  return <div className="admin-auth">
+    <div className="admin-auth-card">
+      <div className="admin-logo"><Img src={imageGuide.kpnLogo} alt="KPN"/></div>
+      <span className="kicker">KPN CMS</span>
+      <h1>Admin KPN</h1>
+      <p>Kelola isi website terhubung Supabase Database & Storage.</p>
+      <div className="password-input-wrap">
+        <input
+          autoFocus
+          type={showPassword ? "text" : "password"}
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          onKeyDown={e => e.key === "Enter" && handleLogin()}
+          placeholder="Password admin"
+        />
+        <button
+          type="button"
+          className="toggle-password-btn"
+          onClick={() => setShowPassword(v => !v)}
+          aria-label={showPassword ? "Sembunyikan sandi" : "Lihat sandi"}
+          title={showPassword ? "Sembunyikan sandi" : "Lihat sandi"}
+        >
+          {showPassword ? <EyeOff size={18}/> : <Eye size={18}/>}
+        </button>
+      </div>
+      <button className="btn gold" onClick={handleLogin}>Masuk <ArrowRight size={16}/></button>
+      {error && <span className="form-error">{error}</span>}
+      <small>Sistem CMS Admin KPN terhubung langsung ke Supabase.</small>
+    </div>
+  </div>;
 }
 
 function Field({ label, value, onChange, textarea = false }) {
@@ -307,7 +364,7 @@ function AdminDashboard({ data, setData, logout }) {
   // CRUD Handlers
   const handleAddProject = async () => {
     const newItem = await addProject({ title: "Project Baru", category: "Videotron", year: "2026", desc: "Deskripsi project...", image: imageGuide.project1 });
-    setData(prev => ({ ...prev, projects: [...prev.projects, newItem] }));
+    setData(prev => ({ ...prev, projects: [newItem, ...prev.projects] }));
     showSavedNotice();
   };
   const handleUpdateProject = async (proj) => {
@@ -323,7 +380,7 @@ function AdminDashboard({ data, setData, logout }) {
 
   const handleAddNews = async () => {
     const newItem = await addNews({ title: "Insight Baru", category: "Berita", date: "Hari ini", excerpt: "Ringkasan...", image: imageGuide.news1 });
-    setData(prev => ({ ...prev, news: [...prev.news, newItem] }));
+    setData(prev => ({ ...prev, news: [newItem, ...prev.news] }));
     showSavedNotice();
   };
   const handleUpdateNews = async (n) => {
@@ -339,7 +396,7 @@ function AdminDashboard({ data, setData, logout }) {
 
   const handleAddClient = async () => {
     const newItem = await addClient({ name: "Partner Baru", image: imageGuide.pertamina });
-    setData(prev => ({ ...prev, clients: [...prev.clients, newItem] }));
+    setData(prev => ({ ...prev, clients: [newItem, ...prev.clients] }));
     showSavedNotice();
   };
   const handleUpdateClient = async (c) => {
@@ -355,7 +412,7 @@ function AdminDashboard({ data, setData, logout }) {
 
   const handleAddService = async () => {
     const newItem = await addService({ title: "Layanan Baru", tag: "SERVICE", short: "Deskripsi singkat", desc: "Deskripsi lengkap", image: imageGuide.service1 });
-    setData(prev => ({ ...prev, services: [...prev.services, newItem] }));
+    setData(prev => ({ ...prev, services: [newItem, ...prev.services] }));
     showSavedNotice();
   };
   const handleUpdateService = async (s) => {
@@ -371,7 +428,7 @@ function AdminDashboard({ data, setData, logout }) {
 
   const handleAddProduct = async () => {
     const newItem = await addProduct({ title: "Produk Baru", category: "Solusi", desc: "Deskripsi produk...", image: imageGuide.service1 });
-    setData(prev => ({ ...prev, products: [...(prev.products || []), newItem] }));
+    setData(prev => ({ ...prev, products: [newItem, ...(prev.products || [])] }));
     showSavedNotice();
   };
   const handleUpdateProduct = async (p) => {

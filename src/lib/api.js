@@ -124,7 +124,7 @@ export async function fetchCMSData() {
       result.contact = {
         phone: ctData.phone || defaultContact.phone,
         whatsapp: ctData.whatsapp || defaultContact.whatsapp,
-        email: ctData.email || defaultContact.email,
+        email: (ctData.email || defaultContact.email).replace(/gnail\.com/g, 'gmail.com'),
         instagram: ctData.instagram || defaultContact.instagram,
         facebook: ctData.facebook || defaultContact.facebook,
         address: ctData.address || defaultContact.address,

@@ -136,7 +136,7 @@ VALUES (
     1,
     '082249501188',
     'https://wa.me/6282249501188',
-    'cv.kpn2019@gnail.com',
+    'cv.kpn2019@gmail.com',
     'https://www.instagram.com/videotronmurahsurabaya?igsi=MWNwamRwMm9kMnh6Zg==',
     'https://www.facebook.com/share/1DRjddx7jz/',
     'Jl. Permata Sukodono Raya No.01 Cluster Beryl Blok H1, Sukodono, Sukodono, Kec. Sukodono, Kabupaten Sidoarjo, Jawa Timur 61258'
