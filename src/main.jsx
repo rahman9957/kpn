@@ -150,7 +150,7 @@ function Clients({ clients }) {
         <div className="kicker">CLIENTS & PROJECT PARTNERS</div>
         <h2>Dipercaya untuk<br/><em>berbagai kebutuhan proyek.</em></h2>
       </div>
-      <p>Beberapa partner di bawah merupakan dokumentasi project KPN. Logo ditampilkan apa adanya tanpa teks tambahan agar tetap clean.</p>
+      <p>Kami hadir sebagai partner dalam mendukung berbagai kebutuhan pengadaan dan project, mulai dari penyediaan produk hingga solusi yang disesuaikan dengan kebutuhan di lapangan. Beberapa di antaranya tercermin melalui project yang telah kami kerjakan bersama berbagai perusahaan dan instansi.</p>
     </div>
     <div className="logo-marquee-wrap" tabIndex={0} role="region" aria-label="Logo Client Carousel">
       <div className="logo-marquee-track">
