@@ -150,7 +150,7 @@ function Clients({ clients }) {
         <div className="kicker">CLIENTS & PROJECT PARTNERS</div>
         <h2>Dipercaya untuk<br/><em>berbagai kebutuhan proyek.</em></h2>
       </div>
-      <p>Kami hadir sebagai partner dalam mendukung berbagai kebutuhan pengadaan dan project, mulai dari penyediaan produk hingga solusi yang disesuaikan dengan kebutuhan di lapangan. Beberapa di antaranya tercermin melalui project yang telah kami kerjakan bersama berbagai perusahaan dan instansi.</p>
+      <p>Hadir sebagai partner dalam mendukung berbagai kebutuhan pengadaan dan project, dari penyediaan produk hingga solusi yang sesuai dengan kebutuhan di lapangan. Beberapa di antaranya merupakan project yang telah kami kerjakan bersama perusahaan dan instansi.</p>
     </div>
     <div className="logo-marquee-wrap" tabIndex={0} role="region" aria-label="Logo Client Carousel">
       <div className="logo-marquee-track">
@@ -194,9 +194,7 @@ function AllNews({ news, contactData = defaultContact }) {
   return <div className="site"><Header menuOpen={false} onMenu={() => {}} contactData={contactData}/><main className="listing-main"><div className="detail-kicker">KABAR & INSIGHT KPN</div><h1>Semua insight KPN.</h1><p className="listing-lead">Artikel, update, dan insight seputar pengadaan, digital display, dan solusi project.</p><div className="news-list-grid">{(news || []).map(n => <NewsCard key={n.id} item={n}/>)}</div></main><Footer contactData={contactData}/></div>;
 }
 
-// =====================================================================
-// COMPONENT UPLOAD GAMBAR DENGAN SUPABASE STORAGE
-// =====================================================================
+
 function ImageField({ value, onChange, label = "Gambar" }) {
   const ref = React.useRef(null);
   const [uploading, setUploading] = React.useState(false);
